@@ -7,7 +7,7 @@ There's more information about magic squares on Wikipedia.
 
 ## Prerequisites
 
-Chrome (latest)
+Google Chrome (latest)
 
 ## Tests
 
@@ -21,3 +21,5 @@ Chrome (latest)
 * Utilizes bester-practice TDE (Test Driven Execution)
 * Provides guarrantee it will converge on correct solution (eventually)
 * Inspiration by Seb Henn
+* Thorough cross-browser testing completed for targeted browsers
+* Target browsers = [Google Chrome]
