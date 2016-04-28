@@ -12,6 +12,7 @@ Chrome (latest)
 ## Tests
 
 * Visit https://entropyau.github.io/magic-squares/
+* Enter a magic square size between 3 and 50, hit GO
 * Wait until it goes green
 
 
