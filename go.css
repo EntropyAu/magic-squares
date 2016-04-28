@@ -23,7 +23,7 @@ h1 {
 h2 {
   font-weight: normal;
   font-size: 16px;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.25px;
   color: #AAA;
   margin: 0;
 }
@@ -62,7 +62,4 @@ button:hover, button:active {
   stroke-width: 0.6;
   stroke-linecap: round;
   opacity: 0.15;
-}
-.value {
-  font-weight: bold;
 }
