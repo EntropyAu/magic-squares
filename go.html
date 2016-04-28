@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title>Magic Squares</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js"></script>
+    <link rel="stylesheet" type="text/stylesheet" href="go.css"></script>
+    <script type="text/javascript" src="go.js"></script>
+    <script>
+      function run() {
+        document.getElementById('setup-section').style.display = "none";
+        document.getElementById('runner-section').style.display = "block";
+        let n = +document.getElementById('n').value;
+        new MagicSquareAnnealer(n).tick();
+      }
+    </script>
+
+  </head>
+  <body>
+    <section id="setup-section">
+      <header>
+        <h1>Magic Squares</h1>
+        <h2>Powered by simulated annealing</h2>
+      </header>
+      <label>How large?</label>
+      <input id="n" type="number" min="3" max="50" value="5"></input><button onclick="javascript:run()">Go</button>
+    </section>
+    <section id="runner-section" style="display: none">
+      <div class="magic-square-container"></div>
+      <label>Remaining error</label><output id="error-total-value"></output>
+      <label>Mutation count</label><output id="mutation-count-value"></output>
+    </section>
+  </body>
+</html>
