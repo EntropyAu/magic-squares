@@ -18,6 +18,7 @@ class MagicSquareAnnealer {
     this.boltzmannsConstant = 0.01;
     this.iterationsPerTick = 1000;
     this.iterationsWithoutImprovement = 0;
+    this.maxIterationsWithoutImprovement = 500 * n * n;
     this.mutationCount = 0;
 
     for (let i = 0; i < this.n * this.n; i++) this.cells.push(i + 1);
@@ -32,13 +33,15 @@ class MagicSquareAnnealer {
       let mutation = this.mutate(this.cells);
       this.mutationCount++;
       let mutationError = this.calculateError(mutation);
-      if (mutationError < this.error.total || Math.exp((this.error.total - mutationError.total) / (this.boltzmannsConstant * this.temperature)) > Math.random()) {
+      let mutateAnyway = Math.exp((this.error.total - mutationError.total) /
+                         (this.boltzmannsConstant * this.temperature)) > Math.random();
+      if (mutationError < this.error.total || mutateAnyway) {
         this.cells = mutation;
         this.error = mutationError;
         if (mutationError.total < this.error.total) this.iterationsWithoutImprovement = 0;
       } else {
-        this.iterationsWithoutImprovement++;              
-        if (this.iterationsWithoutImprovement > 500 * this.n * this.n) {
+        this.iterationsWithoutImprovement++;
+        if (this.iterationsWithoutImprovement > this.maxIterationsWithoutImprovement) {
           this.reheat();
           this.iterationsWithoutImprovement = 0;
         }
@@ -56,7 +59,7 @@ class MagicSquareAnnealer {
           r2 = randN();
     mutated[r1 * this.n + c1] = solution[r2 * this.n + c2];
     mutated[r2 * this.n + c2] = solution[r1 * this.n + c1];
-    return mutated;          
+    return mutated;
   }
 
   reheat() {
@@ -97,12 +100,6 @@ class MagicSquareAnnealer {
       total += cols[i] + rows[i];
     }
     return { cols, rows, diagSE, diagNE, total }
-  }
-
-  swap(aCol, aRow, bCol, bRow) {
-    let v = this.cells[aRow * this.n + aCol];
-    this.cells[aRow * this.n + aCol] = this.cells[bRow * this.n + bCol]
-    this.cells[bRow * this.n + bCol] = v;
   }
 
   render() {
@@ -160,12 +157,13 @@ class MagicSquareAnnealer {
   tick() {
     this.frame++;
     this.anneal();
-    if (this.frame % 20 === 0) this.render();
+    if (this.frame % 20 === 0) {
+      this.render();
+    }
     if (this.error.total > 0) {
       requestAnimationFrame(this.tick.bind(this));
     } else {
       this.render();
     }
-  } 
+  }
 }
-

@@ -52,11 +52,6 @@ button:hover, button:active {
   background: #55BB55;
 }
 
-
-.mutation-count, .error-total {
-  font-family: Arial;
-  text-align: center;
-}
 .error-path {
   stroke: white;
   stroke-width: 0.6;
